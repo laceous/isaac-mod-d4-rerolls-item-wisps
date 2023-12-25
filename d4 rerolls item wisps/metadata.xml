@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <name>D4 Rerolls Item Wisps (+Tainted Eden)</name>
+    <directory>d4 rerolls item wisps</directory>
+    <id>3122288780</id>
+    <description>By default, the D4 doesn't re-roll item wisps. This mod corrects that. Be warned that there seems to be a hard limit of 64 total familiars (including wisps). If you're close to the limit then you may end up with less item wisps after they've been re-rolled due to other familiars spawning. Other items that call the D4 (d100, d infinity, missing no, dice room, reverse wheel of fortune, etc) are also supported.
+
+Item wisps will also be re-rolled when Tainted Eden takes damage.
+
+Re-rolled item wisps will reset their hp.
+
+This was split off from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2966818059]Item Wisp Challenge[/url] as a standalone mod.</description>
+    <version>1.1</version>
+    <visibility>Public</visibility>
+    <tag id="Lua"/>
+    <tag id="Tweaks"/>
+</metadata>
