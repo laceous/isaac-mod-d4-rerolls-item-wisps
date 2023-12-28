@@ -10,7 +10,7 @@ Item wisps will also be re-rolled when Tainted Eden takes damage.
 Re-rolled item wisps will reset their hp.
 
 This was split off from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2966818059]Item Wisp Challenge[/url] as a standalone mod.</description>
-    <version>1.1</version>
+    <version>1.2</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Tweaks"/>

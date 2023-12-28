@@ -12,7 +12,6 @@ end
 function mod:onEntityTakeDmg(entity, amount, dmgFlags, source, countdown)
   local player = entity:ToPlayer()
   
-  -- no birthright support for now
   if player:GetPlayerType() == PlayerType.PLAYER_EDEN_B and not mod:hasAnyFlag(dmgFlags, DamageFlag.DAMAGE_FAKE | DamageFlag.DAMAGE_NO_PENALTIES) then
     local rng = RNG()
     rng:SetSeed(player.InitSeed, mod.rngShiftIdx)
@@ -156,5 +155,19 @@ function mod:hasAnyFlag(flags, flag)
   return flags & flag ~= 0
 end
 
+function mod:setupEid()
+  EID:addDescriptionModifier(mod.Name, function(descObj)
+    return descObj.ObjType == EntityType.ENTITY_PICKUP and descObj.ObjVariant == PickupVariant.PICKUP_COLLECTIBLE and descObj.ObjSubType == CollectibleType.COLLECTIBLE_D4
+  end, function(descObj)
+    -- english only for now
+    EID:appendToDescription(descObj, '#Reroll all of Isaac\'s item wisps')
+    return descObj
+  end)
+end
+
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, mod.onUseItem, CollectibleType.COLLECTIBLE_D4)
 mod:AddPriorityCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, CallbackPriority.LATE, mod.onEntityTakeDmg, EntityType.ENTITY_PLAYER) -- let other mods "return false"
+
+if EID then
+  mod:setupEid()
+end
