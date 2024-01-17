@@ -33,11 +33,25 @@ function mod:rerollItemWisps(player, rng)
     familiar = v:ToFamiliar()
     
     if playerHash == GetPtrHash(familiar.Player) then
+      if familiar.OrbitLayer == 7 then
+        orbitLayer7 = true
+      elseif familiar.OrbitLayer == 8 then
+        orbitLayer8 = true
+      elseif familiar.OrbitLayer == 9 then
+        orbitLayer9 = true
+      end
+      
       if hasTmtrainer then
-        -- generate new glitched items, limited to 26 item wisps per player
-        -- they don't seem to do anything, but this is how lemegeton behaves in this case
-        familiar:Remove()
-        player:UseActiveItem(CollectibleType.COLLECTIBLE_LEMEGETON, false, false, true, false, -1, 0)
+        if REPENTOGON then
+          familiar.SubType = ProceduralItemManager.CreateProceduralItem(rng:Next(), 0) -- 2nd param is undocumented, this can be passive or active
+          familiar.HitPoints = familiar.MaxHitPoints
+          lastSubType = familiar.SubType
+        else
+          -- generate new glitched items, limited to 26 item wisps per player
+          -- they don't seem to do anything, but this is how lemegeton behaves in this case
+          familiar:Remove()
+          player:UseActiveItem(CollectibleType.COLLECTIBLE_LEMEGETON, false, false, true, false, -1, 0)
+        end
       else
         -- there's a hard limit of 64 familiars, including item wisps
         -- removing and adding in the same frame uses up multiple slots, limiting you to half
@@ -68,14 +82,6 @@ function mod:rerollItemWisps(player, rng)
         -- reset HitPoints so this is equivalent to Lemegeton/AddItemWisp
         familiar.HitPoints = familiar.MaxHitPoints
         lastSubType = familiar.SubType
-        
-        if familiar.OrbitLayer == 7 then
-          orbitLayer7 = true
-        elseif familiar.OrbitLayer == 8 then
-          orbitLayer8 = true
-        elseif familiar.OrbitLayer == 9 then
-          orbitLayer9 = true
-        end
       end
     end
   end
